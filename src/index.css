@@ -1,0 +1,56 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  line-height: 1.6;
+} */
+
+* {
+  box-sizing: border-box;
+}
+
+@layer base {
+  body,
+  html {
+    @apply bg-[#0a192f] text-[#8892b0] w-full overflow-x-hidden m-0 p-0 min-h-full;
+  }
+  section {
+    @apply my-0 mx-auto py-14 md:py-20 lg:py-24 px-0 max-w-4xl;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply text-[#ccd6f6];
+  }
+
+  button {
+    @apply border-[0px];
+  }
+
+  a {
+    @apply inline-block decoration-transparent relative transition-all hover:text-[#64ffda] capitalize;
+  }
+
+  .numbered_heading {
+    @apply flex capitalize items-center mt-2 mx-0 mb-10 w-[100%] relative text-[clamp(26px,5vw,32px)] whitespace-nowrap font-semibold before:relative before:bottom-1 before:mr-[3px] before:-mb-[3px] lg:before:mr-[10px] before:text-green-400 before:font-normal after:block  after:relative after:w-full after:ml-[10px] after:lg:w-72 after:lg:ml-5 after:h-[1px] after:bg-slate-400;
+  }
+
+  .project_svg {
+    @apply w-10 h-10 fill-[none] align-middle min-w-full;
+  }
+  .App {
+    @apply flex flex-col min-h-screen;
+  }
+  #root {
+    @apply min-h-screen grid grid-rows-[1fr,auto] grid-cols-[100%];
+  }
+}
