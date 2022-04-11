@@ -1,68 +1,72 @@
-pipeline{
-    agent{
-        label "node"
+pipeline {
+    agent any
+
+    environment {
+        NEW_VERSION = '1.3.0'
     }
-    stages{
-        stage("build"){
-            steps{
-                echo "========executing build========"
+
+    tools {
+        nodejs 'Node-16.13.0'
+    }
+
+    stages {
+        stage('install') {
+            steps {
+                script {
+                    gv = load('script.groovy')
+                }
+
+                sh '''
+                yarn install
+                '''
             }
-            post{
-                always{
-                    echo "========always========"
-                }
-                success{
-                    echo "========build executed successfully========"
-                }
-                failure{
-                    echo "========build execution failed========"
+            post {
+                    success {
+                        echo '========installation executed successfully========'
+                    }
+            }
+        }
+
+        stage('build') {
+            steps {
+                sh '''
+                yarn build
+                '''
+            }
+            post {
+                success {
+                    echo '========build executed successfully========'
                 }
             }
         }
-        stage("test"){
-            steps{
-                echo "====++++executing test++++===="
+        stage('test') {
+            when {
+                branch 'main'
             }
-            post{
-                always{
-                    echo "====++++always++++===="
+            steps {
+                script {
+                    gv.buildApp()
                 }
-                success{
-                    echo "====++++test executed successfully++++===="
-                }
-                failure{
-                    echo "====++++test execution failed++++===="
-                }
-        
+                withCredentials([usernamePassword(credentials:'credential_id',
+                 usernameVariable:USER, passwordVariable:PWD)]) {
+                    sh '''
+                        hello $USER $PWD
+                        '''
+                 }
             }
-        }
-        stage("deploy"){
-            steps{
-                echo "====++++executing deploy++++===="
-            }
-            post{
-                always{
-                    echo "====++++always++++===="
+            post {
+                success {
+                    echo '====++++test executed successfully++++===='
                 }
-                success{
-                    echo "====++++deploy executed successfully++++===="
-                }
-                failure{
-                    echo "====++++deploy execution failed++++===="
-                }
-        
             }
         }
     }
-    post{
-        always{
-            echo "========always========"
+    post {
+        success {
+            echo '========pipeline executed successfully ========'
         }
-        success{
-            echo "========pipeline executed successfully ========"
-        }
-        failure{
-            echo "========pipeline execution failed========"
+        failure {
+            echo '========pipeline execution failed========'
         }
     }
 }
