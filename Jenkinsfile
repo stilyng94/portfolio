@@ -39,24 +39,18 @@ pipeline {
                 }
             }
         }
-        stage('test') {
-            when {
-                branch 'main'
-            }
+        stage('deploy') {
             steps {
                 script {
-                    gv.buildApp()
+                    gv.buildDocker()
                 }
-                withCredentials([usernamePassword(credentials:'credential_id',
-                 usernameVariable:USER, passwordVariable:PWD)]) {
-                    sh '''
-                        hello $USER $PWD
-                        '''
-                 }
             }
             post {
                 success {
-                    echo '====++++test executed successfully++++===='
+                    echo '====++++deploy executed successfully++++===='
+                }
+                failure {
+                    echo '====++++deploy executed failed++++===='
                 }
             }
         }
@@ -67,6 +61,10 @@ pipeline {
         }
         failure {
             echo '========pipeline execution failed========'
+        }
+        always {
+            sh(script: '/usr/local/bin/docker-compose down')
+            cleanWs()
         }
     }
 }
