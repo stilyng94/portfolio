@@ -1,5 +1,5 @@
 def buildDocker() {
-  sh(script: '/usr/local/bin/docker-compose up -d')
+  sh(script: 'docker-compose run -rm frontend')
 }
 
 return this
