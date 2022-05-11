@@ -1,4 +1,4 @@
-FROM node:14-alpine AS builder
+FROM node:lts-alpine3.15 AS builder
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 COPY . .
@@ -6,7 +6,7 @@ RUN yarn install
 RUN yarn build
 
 
-FROM nginx:1.16.0-alpine
+FROM nginx:1.21.6-alpine
 
 # RUN addgroup -g 1001 -S node
 # RUN adduser -S node -u 1001

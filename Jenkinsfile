@@ -5,19 +5,16 @@ pipeline {
         NEW_VERSION = '1.3.0'
     }
 
-    tools {
-        nodejs 'node16-lts'
-    }
-
     stages {
         stage('install') {
             steps {
-                script {
-                    gv = load('script.groovy')
+                agent {
+                    docker { image:'node:lts-alpine3.15' }
                 }
 
                 sh '''
                 yarn install
+                node --version
                 '''
             }
             post {
@@ -36,21 +33,6 @@ pipeline {
             post {
                 success {
                     echo '========build executed successfully========'
-                }
-            }
-        }
-        stage('deploy') {
-            steps {
-                script {
-                    gv.buildDocker()
-                }
-            }
-            post {
-                success {
-                    echo '====++++deploy executed successfully++++===='
-                }
-                failure {
-                    echo '====++++deploy executed failed++++===='
                 }
             }
         }

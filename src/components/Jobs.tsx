@@ -71,7 +71,7 @@ function Jobs() {
             </button>
           ))}
           <div
-            className={`absolute top-0 left-0 z-10 w-[2px] h-10 bg-[#64ffda] translate-y-[calc(${selectedTab} * 42px)] transition-transform`}
+            className={`absolute top-0 left-0 z-10 w-[2px] h-10 bg-[#64ffda] translate-y-[calc(${selectedTab}*42px)] transition-transform`}
           ></div>
         </div>
         <div className="relative w-full ml-5">
