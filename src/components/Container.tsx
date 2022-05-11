@@ -15,5 +15,3 @@ function Container() {
 }
 
 export default Container;
-
-// my-0 mx-auto min-h-screen container py-0 px-24

@@ -149,12 +149,7 @@ function Footer() {
         </ul>
       </div>
       <div>
-        <a
-          href="/github"
-          aria-label="Github Link"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <a href="#">
           <div> Inspired by Brittany Chiang & Built by Pablo</div>
         </a>
       </div>
